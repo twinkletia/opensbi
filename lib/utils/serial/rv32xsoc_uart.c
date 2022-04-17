@@ -1,6 +1,7 @@
 #include <sbi_utils/serial/rv32xsoc_uart.h>
 
 int rv32xsoc_uart_init(void) {
+  	RV32XSOC_UART_RX_SET_EN(1);
 	return 0;
 }
 int rv32xsoc_uart_putchar(int ch) {
@@ -15,16 +16,28 @@ int rv32xsoc_uart_putchar(int ch) {
 }
 
 int rv32xsoc_uart_getchar(void) {
+	/*
 	int ch = -1;
 
 	RV32XSOC_UART_RX_SET_EN(1);
 
-	/* Blocking */
 	while(RV32XSOC_UART_RX_GET_STAT_EMPTY()) {
 		asm volatile("nop");
 	}
 	ch = *RV32XSOC_UART_RX_BUF;
 	return ch;
+	*/
+  int ch;
+
+  ch = *RV32XSOC_UART_RX_BUF;
+  if (ch)
+  {
+    return ch;
+  }
+  else
+  {
+    return -1;
+  }
 }
 void __attribute__((weak)) rv32xsoc_uart_rx_interrupt_handler(void) {
 }
