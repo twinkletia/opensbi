@@ -9,3 +9,12 @@ install/
 
 # Development friendly files
 tags
+
+# for rv32xSoC
+*.log
+*.hex
+*.elf
+*.gtkw
+rv32x_simulation
+*.vcd
+*.sh
