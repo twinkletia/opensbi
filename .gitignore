@@ -17,4 +17,7 @@ tags
 *.gtkw
 rv32x_simulation
 *.vcd
-*.sh
+gtk.sh
+copy.sh
+*.s
+fsbuild/*
