@@ -9,12 +9,13 @@ fi
 #build initramfs
 
 pushd ../busybox
-make CROSS_COMPILE=riscv32-unknown-linux-gnu- CFLAGS=-static -j `nproc`
+make ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- defconfig
+make install ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- CFLAGS=-static -j `nproc`
 popd
 
 mkdir fsbuild
 pushd fsbuild
-cp -r ../busybox/_install/*/ ./
+cp -r /root/software/busybox/_install/*/ ./
 mkdir -p dev etc/init.d lib/modules mnt proc tmp var/log var/run var/tmp
 pushd dev
 mknod console c 5 1
@@ -35,7 +36,7 @@ popd
 #build linux
 
 pushd ../linux
-sed -i -e 's/CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE="/root/software/opensbi/fsbuild"/g' ../linux/arch/riscv/configs/rv32xSoC_defconfig
+sed -i -e 's/CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE=\"\/root\/software\/opensbi\/fsbuild\"/g' /root/software/linux/arch/riscv/configs/rv32xSoC_defconfig
 make ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- rv32xSoC_defconfig
 make CFLAGS="-march=rv32ima -mabi=ilp32" LDFLAGS="-march=rv32ima -mabi=ilp32" ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- all -j`nproc`
 popd
@@ -45,7 +46,7 @@ popd
 make clean
 make -C ../bootrom
 make -C ../../simulation
-make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=../linux/arch/riscv/boot/Image FW_FDT_PATH=../bootrom/rv32xsoc.dtb
+make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=/root/software/linux/arch/riscv/boot/Image FW_FDT_PATH=/root/software/bootrom/rv32xsoc.dtb
 
 cp ../../simulation/bootrom.hex ./
 cp ../../simulation/rv32x_simulation ./
@@ -55,4 +56,4 @@ cp ../../simulation/rv32x.gtkw ./
 ln -s build/platform/rv32xsoc/firmware/fw_payload.elf linux
 rm -rf fsbuild
 clear 
-./rv32x_simluation linux --debug-linux --print-entry --print-exception
+./rv32x_simulation linux --debug-linux --print-entry --print-exception
