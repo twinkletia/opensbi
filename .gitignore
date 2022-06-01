@@ -21,3 +21,4 @@ gtk.sh
 copy.sh
 *.s
 fsbuild/*
+OBJDUMP_rv32i
