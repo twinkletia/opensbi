@@ -22,3 +22,5 @@ copy.sh
 *.s
 fsbuild/*
 OBJDUMP_rv32i
+RAM0_80000000-84008000.dat
+linux
