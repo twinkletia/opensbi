@@ -44,7 +44,7 @@ popd
 #build payload
 
 make clean
-make -C ../bootrom
+make -C ../bootrom -B
 make -C ../../simulation
 make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=/root/software/linux/arch/riscv/boot/Image FW_FDT_PATH=/root/software/bootrom/rv32xsoc.dtb
 
