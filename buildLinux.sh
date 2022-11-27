@@ -55,5 +55,5 @@ cp ../../simulation/rv32x.gtkw ./
 
 ln -s build/platform/rv32xsoc/firmware/fw_payload.elf linux
 rm -rf fsbuild
-clear 
-./rv32x_simulation linux --debug-linux --print-entry --print-exception
+#clear 
+#./rv32x_simulation linux --debug-linux --print-entry --print-exception
