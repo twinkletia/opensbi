@@ -45,8 +45,8 @@ popd
 
 make clean
 make -C ../../simulation/bootrom -B LOADEROPT=-DBINSIZE=0\ -DHEAD=0x80000000
-make -C ../../simulation SIMOPT=-DKERNEL_START_ADDR=0x80400000
-make -C ../bootrom
+make -C ../../simulation -B SIMOPT=-DKERNEL_START_ADDR=0x80400000
+make -C ../bootrom -B
 make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=/root/software/linux/arch/riscv/boot/Image FW_FDT_PATH=/root/software/bootrom/rv32xsoc.dtb
 
 cp ../../simulation/bootrom.hex ./
@@ -55,6 +55,5 @@ cp ../../simulation/gtk.sh ./
 cp ../../simulation/rv32x.gtkw ./
 
 ln -s build/platform/rv32xsoc/firmware/fw_payload.elf linux
-rm -rf fsbuild
 #clear 
 #./rv32x_simulation linux --debug-linux --print-entry --print-exception
