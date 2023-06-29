@@ -38,7 +38,7 @@ popd
 pushd ../linux
 sed -i -e 's/CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE=\"\/root\/software\/opensbi\/fsbuild\"/g' /root/software/linux/arch/riscv/configs/rv32xSoC_defconfig
 make ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- rv32xSoC_defconfig
-make CFLAGS="-march=rv32ima -mabi=ilp32" LDFLAGS="-march=rv32ima -mabi=ilp32" ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- all -j`nproc`
+make CFLAGS="-march=rv32ima_zicsr -mabi=ilp32" LDFLAGS="-march=rv32ima_zicsr -mabi=ilp32" ARCH=riscv CROSS_COMPILE=riscv32-unknown-linux-gnu- all -j`nproc`
 popd
 
 #build payload
