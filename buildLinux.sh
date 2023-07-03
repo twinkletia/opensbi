@@ -49,6 +49,10 @@ make -C ../../simulation -B SIMOPT=-DKERNEL_START_ADDR=0x80400000
 make -C ../bootrom -B
 make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=/root/software/linux/arch/riscv/boot/Image FW_FDT_PATH=/root/software/bootrom/rv32xsoc.dtb
 
+#create bootable mmc sim(40M kernel, 60M rootfs)
+dd if=build/platform/rv32xsoc/firmware/fw_payload.bin of=block_device.img
+dd if=/root/software/buildroot/output/images/rootfs.ext2 of=block_device.img bs=1k seek=40k count=60k
+
 cp ../../simulation/bootrom.hex ./
 cp ../../simulation/rv32x_simulation ./
 cp ../../simulation/gtk.sh ./
