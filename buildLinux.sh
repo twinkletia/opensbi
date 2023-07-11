@@ -50,6 +50,10 @@ make -C ../bootrom -B
 make CROSS_COMPILE=riscv32-unknown-elf- PLATFORM_DIR=platform PLATFORM=rv32xsoc FW_PAYLOAD_PATH=/root/software/linux/arch/riscv/boot/Image FW_FDT_PATH=/root/software/bootrom/rv32xsoc.dtb
 
 #create bootable mmc sim(40M kernel, 60M rootfs)
+pushd ../buildroot
+make defconfig BR2_DEFCONFIG=configs/rv32xsoc_defconfig
+make
+popd
 dd if=build/platform/rv32xsoc/firmware/fw_payload.bin of=block_device.img
 dd if=/root/software/buildroot/output/images/rootfs.ext2 of=block_device.img bs=1k seek=40k count=60k
 
